@@ -1,4 +1,3 @@
-<<EOF
 #include <print.hpp>
 
 #include <fstream>
