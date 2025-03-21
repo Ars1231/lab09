@@ -1,3 +1,4 @@
+<фрагмент_вставки_значка>
 murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab03$ cd
 murka2006@murka:~$ export GITHUB_USERNAME=Mari-Mur-Meow
 murka2006@murka:~$ cd ${GITHUB_USERNAME}/workspace
