@@ -456,3 +456,193 @@ murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ sudo apt install gnome
 Обрабатываются триггеры для gnome-menus (3.36.0-1.1ubuntu3) …
 murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ sleep 20s && gnome-screenshot --file artifacts/screenshot.png
 murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ 
+
+
+murka2006@murka:~$ export GITHUB_USERNAME=Mari-Mur-Meow
+murka2006@murka:~$ export GITHUB_EMAIL=mashmar2006@mail.ru
+murka2006@murka:~$ alias edit=nano
+murka2006@murka:~$ alias gsed=sed
+murka2006@murka:~$ cd ${GITHUB_USERNAME}/workspace
+murka2006@murka:~/Mari-Mur-Meow/workspace$ pushd . 
+~/Mari-Mur-Meow/workspace ~/Mari-Mur-Meow/workspace
+murka2006@murka:~/Mari-Mur-Meow/workspace$ source scripts/activate
+murka2006@murka:~/Mari-Mur-Meow/workspace$ git clone https://github.com/${GITHUB_USERNAME}/lab05 projects/lab06
+Клонирование в «projects/lab06»...
+remote: Enumerating objects: 77, done.
+remote: Counting objects: 100% (77/77), done.
+remote: Compressing objects: 100% (38/38), done.
+remote: Total 77 (delta 30), reused 72 (delta 28), pack-reused 0 (from 0)
+Получение объектов: 100% (77/77), 25.21 КиБ | 3.15 МиБ/с, готово.
+Определение изменений: 100% (30/30), готово.
+murka2006@murka:~/Mari-Mur-Meow/workspace$ cd projects/lab06
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ git remote remove origin
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ gsed -i '/project(print)/a\
+set(PRINT_VERSION_STRING "v\${PRINT_VERSION}")
+' CMakeLists.txt
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ gsed -i '/project(print)/a\
+set(PRINT_VERSION\
+  \${PRINT_VERSION_MAJOR}.\${PRINT_VERSION_MINOR}.\${PRINT_VERSION_PATCH}.\${PRINT_VERSION_TWEAK})
+' CMakeLists.txt
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ gsed -i '/project(print)/a\
+set(PRINT_VERSION_TWEAK 0)
+> ' CMakeLists.txt
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ gsed -i '/project(print)/a\
+set(PRINT_VERSION_PATCH 0)
+' CMakeLists.txt
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ gsed -i '/project(print)/a\
+set(PRINT_VERSION_MINOR 1)
+' CMakeLists.txt
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ gsed -i '/project(print)/a\
+set(PRINT_VERSION_MAJOR 0)
+' CMakeLists.txt
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ git diff
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 602e661..c94edcc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,6 +7,13 @@ option(BUILD_EXAMPLES "Build examples" OFF)
+ option(BUILD_TESTS "Build tests" OFF)
+ 
+ project(print)
++set(PRINT_VERSION_MAJOR 0)
++set(PRINT_VERSION_MINOR 1)
++set(PRINT_VERSION_PATCH 0)
++set(PRINT_VERSION_TWEAK 0)
++set(PRINT_VERSION
++  ${PRINT_VERSION_MAJOR}.${PRINT_VERSION_MINOR}.${PRINT_VERSION_PATCH}.${PRINT_VERSION_TWEAK})
++set(PRINT_VERSION_STRING "v${PRINT_VERSION}")
+ 
+ add_library(print STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/print.cpp)
+ 
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ touch DESCRIPTION && edit DESCRIPTION
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ touch ChangeLog.md
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ export DATE="`LANG=en_US date +'%a %b %d %Y'`"
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cat > ChangeLog.md <<EOF
+> * ${DATE} ${GITHUB_USERNAME} <${GITHUB_EMAIL}> 0.1.0.0
+- Initial RPM release
+> EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cat > CPackConfig.cmake <<EOF
+> include(InstallRequiredSystemLibraries)
+> EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cat >> CPackConfig.cmake <<EOF
+> set(CPACK_PACKAGE_CONTACT ${GITHUB_EMAIL})
+set(CPACK_PACKAGE_VERSION_MAJOR \${PRINT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR \${PRINT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH \${PRINT_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION_TWEAK \${PRINT_VERSION_TWEAK})
+set(CPACK_PACKAGE_VERSION \${PRINT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_FILE \${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION)
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "static C++ library for printing")
+> EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cat >> CPackConfig.cmake <<EOF
+> set(CPACK_RESOURCE_FILE_LICENSE \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
+set(CPACK_RESOURCE_FILE_README \${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+> EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cat >> CPackConfig.cmake <<EOF
+> set(CPACK_RPM_PACKAGE_NAME "print-devel")
+set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+set(CPACK_RPM_PACKAGE_GROUP "print")
+set(CPACK_RPM_CHANGELOG_FILE \${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
+set(CPACK_RPM_PACKAGE_RELEASE 1)
+> EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cat >> CPackConfig.cmake <<EOF
+> set(CPACK_DEBIAN_PACKAGE_NAME "libprint-dev")
+set(CPACK_DEBIAN_PACKAGE_PREDEPENDS "cmake >= 3.0")
+set(CPACK_DEBIAN_PACKAGE_RELEASE 1)
+> EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cat >> CPackConfig.cmake <<EOF
+> include(CPack)
+> EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cat >> CMakeLists.txt <<EOF
+> include(CPackConfig.cmake)
+> EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ gsed -i 's/lab05/lab06/g' README.md
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ git add .
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ git commit -m"added cpack config"
+[master cfb102b] added cpack config
+ 5 files changed, 112 insertions(+), 82 deletions(-)
+ create mode 100644 CPackConfig.cmake
+ create mode 100644 ChangeLog.md
+ create mode 100644 DESCRIPTION
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$  git tag v0.1.0.0
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ git push origin master --tags
+Username for 'https://github.com': Mari-Mur-Meow
+Password for 'https://Mari-Mur-Meow@github.com': 
+Перечисление объектов: 83, готово.
+Подсчет объектов: 100% (83/83), готово.
+При сжатии изменений используется до 8 потоков
+Сжатие объектов: 100% (42/42), готово.
+Запись объектов: 100% (83/83), 26.61 КиБ | 6.65 МиБ/с, готово.
+Всего 83 (изменений 33), повторно использовано 74 (изменений 30), повторно использовано пакетов 0
+remote: Resolving deltas: 100% (33/33), done.
+To https://github.com/Mari-Mur-Meow/lab06
+ * [new branch]      master -> master
+ * [new tag]         v0.1.0.0 -> v0.1.0.0
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cmake -H. -B_build
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.5 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/murka2006/Mari-Mur-Meow/workspace/projects/lab06/_build
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cmake --build _build
+[ 50%] Building CXX object CMakeFiles/print.dir/sources/print.cpp.o
+[100%] Linking CXX static library libprint.a
+[100%] Built target print
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cd _build
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06/_build$ cpack -G "TGZ"
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: print
+CPack: - Install project: print []
+CPack: Create package
+CPack: - package: /home/murka2006/Mari-Mur-Meow/workspace/projects/lab06/_build/print-0.1.0.0-Linux.tar.gz generated.
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06/_build$ cd ..
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cmake -H. -B_build -DCPACK_GENERATOR="TGZ"
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.5 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/murka2006/Mari-Mur-Meow/workspace/projects/lab06/_build
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ cmake --build _build --target package
+[100%] Built target print
+Run CPack packaging tool...
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: print
+CPack: - Install project: print []
+CPack: Create package
+CPack: - package: /home/murka2006/Mari-Mur-Meow/workspace/projects/lab06/_build/print-0.1.0.0-Linux.tar.gz generated.
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ mkdir artifacts
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ mv _build/*.tar.gz artifacts
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ tree artifacts
+artifacts
+└── print-0.1.0.0-Linux.tar.gz
+
+1 directory, 1 file
+murka2006@murka:~/Mari-Mur-Meow/workspace/projects/lab06$ 
+
