@@ -3,70 +3,70 @@ murka2006@murka:~$ cd ${GITHUB_USERNAME}/workspace
 murka2006@murka:~/Mari-Mur-Meow/workspace$ pushd .
 ~/Mari-Mur-Meow/workspace ~/Mari-Mur-Meow/workspace
 murka2006@murka:~/Mari-Mur-Meow/workspace$ source scripts/activate
-murka2006@murka:~/Mari-Mur-Meow/workspace$ git clone https://github.com/${GITHUB_USERNAME}/lab07 lab08
-Клонирование в «lab08»...
+murka2006@murka:~/Mari-Mur-Meow/workspace$ git clone https://github.com/${GITHUB_USERNAME}/lab07 lab09
+Клонирование в «lab09»...
 remote: Enumerating objects: 95, done.
 remote: Counting objects: 100% (95/95), done.
 remote: Compressing objects: 100% (47/47), done.
 remote: Total 95 (delta 40), reused 87 (delta 37), pack-reused 0 (from 0)
 Получение объектов: 100% (95/95), 43.73 КиБ | 422.00 КиБ/с, готово.
 Определение изменений: 100% (40/40), готово.
-murka2006@murka:~/Mari-Mur-Meow/workspace$  cd lab08
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git submodule update --init
+murka2006@murka:~/Mari-Mur-Meow/workspace$  cd lab09
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git submodule update --init
 Подмодуль «third-party/gtest» (https://github.com/google/googletest) зарегистрирован по пути «third-party/gtest»
-Клонирование в «/home/murka2006/Mari-Mur-Meow/workspace/lab08/third-party/gtest»...
+Клонирование в «/home/murka2006/Mari-Mur-Meow/workspace/lab09/third-party/gtest»...
 Submodule path 'third-party/gtest': checked out 'e2239ee6043f73722e7aa812a459f54a28552929'
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git remote remove origin
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab08
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat > Dockerfile <<EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git remote remove origin
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab09
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat > Dockerfile <<EOF
 > FROM ubuntu:18.04
 > EOF
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat >> Dockerfile <<EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat >> Dockerfile <<EOF
 > COPY . print/
 WORKDIR print
 > EOF
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat >> Dockerfile <<EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat >> Dockerfile <<EOF
 > RUN cmake -H. -B_build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=_install
 RUN cmake --build _build
 RUN cmake --build _build --target install
 > EOF
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat >> Dockerfile <<EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat >> Dockerfile <<EOF
 > ENV LOG_PATH /home/logs/log.txt
 > EOF
 
-murka2006@murka:~$ cd Mari-Mur-Meow/workspace/lab08
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat >> Dockerfile <<EOF
+murka2006@murka:~$ cd Mari-Mur-Meow/workspace/lab09
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat >> Dockerfile <<EOF
 > VOLUME /home/logs
 > EOF
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat >> Dockerfile <<EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat >> Dockerfile <<EOF
 > WORKDIR _install/bin
 > EOF
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat >> Dockerfile <<EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat >> Dockerfile <<EOF
 > ENTRYPOINT ./demo
 > EOF
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker build -t logger .
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker build -t logger .
 Команда «docker» не найдена, но может быть установлена с помощью:
 sudo snap install docker         # version 27.5.1, or
 sudo apt  install docker.io      # version 26.1.3-0ubuntu1~24.04.1
 sudo apt  install podman-docker  # version 4.9.3+ds1-1ubuntu0.2
 См. 'snap info docker', чтобы посмотреть дополнительные версии.
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ sudo snap install docker  
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ sudo snap install docker  
 [sudo] пароль для murka2006: 
 docker 27.5.1 from Canonical✓ installed
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker build -t logger .
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker build -t logger .
 ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ getent group docker
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ groups
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ getent group docker
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ groups
 murka2006 adm cdrom sudo dip plugdev users lpadmin
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ sudo usermod -aG docker murka2006
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ sudo usermod -aG docker murka2006
 usermod: группа «docker» не существует
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ sudo groupadd docker
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ sudo usermod -aG docker murka2006
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ groups
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ sudo groupadd docker
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ sudo usermod -aG docker murka2006
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ groups
 murka2006 adm cdrom sudo dip plugdev users lpadmin
 
-murka2006@murka:~$ cd Mari-Mur-Meow/workspace/lab08
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker build -t logger .
+murka2006@murka:~$ cd Mari-Mur-Meow/workspace/lab09
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker build -t logger .
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
@@ -88,14 +88,14 @@ Step 4/10 : RUN cmake -H. -B_build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PR
  ---> Running in 365bdf960b63
 /bin/sh: 1: cmake: not found
 The command '/bin/sh -c cmake -H. -B_build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=_install' returned a non-zero code: 127
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cmake --version
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cmake --version
 cmake version 3.28.3
 
 CMake suite maintained and supported by Kitware (kitware.com/cmake).
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat > Dockerfile <<EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat > Dockerfile <<EOF
 > FROM ubuntu:20.04
 > EOF
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker build -t logger .
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker build -t logger .
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
@@ -109,15 +109,15 @@ Status: Downloaded newer image for ubuntu:20.04
  ---> b7bab04fd9aa
 Successfully built b7bab04fd9aa
 Successfully tagged logger:latest
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker images
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker images
 REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
 <none>       <none>    6f48ec71fbd3   4 minutes ago   82.5MB
 logger       latest    b7bab04fd9aa   4 weeks ago     72.8MB
 ubuntu       20.04     b7bab04fd9aa   4 weeks ago     72.8MB
 ubuntu       18.04     f9a80a55f492   23 months ago   63.2MB
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$  mkdir logs
-murka2006@murka:~$ cd Mari-Mur-Meow/workspace/lab08
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker build -t logger .
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$  mkdir logs
+murka2006@murka:~$ cd Mari-Mur-Meow/workspace/lab09
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker build -t logger .
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
@@ -139,14 +139,14 @@ Step 4/10 : RUN cmake -H. -B_build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PR
  ---> Running in 365bdf960b63
 /bin/sh: 1: cmake: not found
 The command '/bin/sh -c cmake -H. -B_build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=_install' returned a non-zero code: 127
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cmake --version
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cmake --version
 cmake version 3.28.3
 
 CMake suite maintained and supported by Kitware (kitware.com/cmake).
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat > Dockerfile <<EOF
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat > Dockerfile <<EOF
 > FROM ubuntu:20.04
 > EOF
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker build -t logger .
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker build -t logger .
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
@@ -160,14 +160,14 @@ Status: Downloaded newer image for ubuntu:20.04
  ---> b7bab04fd9aa
 Successfully built b7bab04fd9aa
 Successfully tagged logger:latest
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker images
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker images
 REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
 <none>       <none>    6f48ec71fbd3   4 minutes ago   82.5MB
 logger       latest    b7bab04fd9aa   4 weeks ago     72.8MB
 ubuntu       20.04     b7bab04fd9aa   4 weeks ago     72.8MB
 ubuntu       18.04     f9a80a55f492   23 months ago   63.2MB
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$  mkdir logs
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker run -it -v "$(pwd)/logs/:/home/logs/" logger
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$  mkdir logs
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker run -it -v "$(pwd)/logs/:/home/logs/" logger
 text1
 text2
 text3
@@ -181,7 +181,7 @@ root@16d40953e4d1:/# text1: команда не найдена
 text2: команда не найдена
 text3: команда не найдена
 bash: синтаксическая ошибка рядом с неожиданным маркером «newline»
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker run -it -v "$(pwd)/logs/:/home/logs/" logger
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker run -it -v "$(pwd)/logs/:/home/logs/" logger
 text1
 text2
 text3
@@ -189,16 +189,16 @@ root@7527863f1944:/# exit
 text1: команда не найдена
 text2: команда не найдена
 text3: команда не найдена
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ ^C
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker run -it -v "$(pwd)/logs/:/home/logs/" logger
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ ^C
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker run -it -v "$(pwd)/logs/:/home/logs/" logger
 root@c5e283c7e9f6:/# text1
 bash: text1: command not found
 root@c5e283c7e9f6:/# text1
 bash: text1: command not found
 root@c5e283c7e9f6:/# exit
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker run -it -v "$(pwd)/logs/:/home/logs/" logger
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker run -it -v "$(pwd)/logs/:/home/logs/" logger
 root@281e6327ca0d:/# exit
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker inspect logger
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker inspect logger
 [
     {
         "Id": "sha256:b7bab04fd9aa0c771e5720bf0cc7cbf993fd6946645983d9096126e5af45d713",
@@ -262,20 +262,20 @@ murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker inspect logger
         }
     }
 ]
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$  cat logs/log.txt
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$  cat logs/log.txt
 cat: logs/log.txt: Нет такого файла или каталога
 
 
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker run -it -v "$(pwd)/logs:/home/logs" logger bash -c "cat > /home/logs/log.txt"
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker run -it -v "$(pwd)/logs:/home/logs" logger bash -c "cat > /home/logs/log.txt"
 text1
 text
 text3
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ ^C
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat logs/log.txt
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ ^C
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat logs/log.txt
 text1
 text
 text3
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$  gsed -i 's/lab07/lab08/g' README.md
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$  gsed -i 's/lab07/lab09/g' README.md
 Команда «gsed» не найдена. Возможно, вы имели в виду:
   команда 'msed' из deb-пакета mblaze (1.1-1)
   команда 'gsd' из deb-пакета python3-gsd (3.0.1-3build1)
@@ -286,16 +286,16 @@ murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$  gsed -i 's/lab07/lab08/g' READ
   команда 'gsnd' из deb-пакета ghostscript (10.02.1~dfsg1-0ubuntu7.5)
   команда 'gsad' из deb-пакета gsad (22.8.0-1)
 Попробуйте: sudo apt install <имя_deb-пакета>
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ sed -i 's/lab07/lab08/g' README.md
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ vim .travis.yml
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ vim .travis.yml
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git add Dockerfile
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git add .travis.yml
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git commit -m"adding Dockerfile"
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ sed -i 's/lab07/lab09/g' README.md
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ vim .travis.yml
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ vim .travis.yml
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git add Dockerfile
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git add .travis.yml
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git commit -m"adding Dockerfile"
 [master da0f64c] adding Dockerfile
  2 files changed, 14 insertions(+), 12 deletions(-)
  create mode 100644 Dockerfile
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$  git push origin master
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$  git push origin master
 Username for 'https://github.com': Mari-Mur-Meow
 Password for 'https://Mari-Mur-Meow@github.com': 
 Перечисление объектов: 99, готово.
@@ -305,9 +305,9 @@ Password for 'https://Mari-Mur-Meow@github.com':
 Запись объектов: 100% (99/99), 44.06 КиБ | 14.69 МиБ/с, готово.
 Всего 99 (изменений 41), повторно использовано 94 (изменений 40), повторно использовано пакетов 0
 remote: Resolving deltas: 100% (41/41), done.
-To https://github.com/Mari-Mur-Meow/lab08
+To https://github.com/Mari-Mur-Meow/lab09
  * [new branch]      master -> master
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ 
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ 
 
 
 murka2006@murka:~$ ls
@@ -317,12 +317,12 @@ murka2006@murka:~$ ls
  reports         бандит         Изображения  'Рабочий стол'
 murka2006@murka:~$ cd Mari-Mur-Meow
 murka2006@murka:~/Mari-Mur-Meow$ cd workspace
-murka2006@murka:~/Mari-Mur-Meow/workspace$ cd lab08
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git submodule update --init
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git remote remove origin
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab08
+murka2006@murka:~/Mari-Mur-Meow/workspace$ cd lab09
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git submodule update --init
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git remote remove origin
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab09
 
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker build -t logger .
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker build -t logger .
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
@@ -778,16 +778,16 @@ Step 12/12 : ENTRYPOINT ./demo
  ---> ad05ccf65b29
 Successfully built ad05ccf65b29
 Successfully tagged logger:latest
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$  docker images
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$  docker images
 REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
 logger       latest    ad05ccf65b29   13 seconds ago   454MB
 <none>       <none>    d6a08a876c08   56 minutes ago   422MB
 <none>       <none>    6f48ec71fbd3   23 hours ago     82.5MB
 ubuntu       20.04     b7bab04fd9aa   4 weeks ago      72.8MB
 ubuntu       18.04     f9a80a55f492   23 months ago    63.2MB
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$  mkdir logs
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$  mkdir logs
 mkdir: невозможно создать каталог «logs»: Файл существует
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker inspect logger
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ docker inspect logger
 [
     {
         "Id": "sha256:ad05ccf65b29a1a0f3b0c927d042df98f0c296233ad9ad49f3dca2f01f507d9b",
@@ -860,41 +860,41 @@ murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ docker inspect logger
         }
     }
 ]
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ cat logs/log.txt
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ cat logs/log.txt
 text1
 text
 text3
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git add Dockerfile
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$  git commit -m"adding Dockerfile"
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git add Dockerfile
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$  git commit -m"adding Dockerfile"
 [master d64e69b] adding Dockerfile
  1 file changed, 13 insertions(+)
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git push origin master
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git push origin master
 Username for 'https://github.com': Mari-Mur-Meow
 Password for 'https://Mari-Mur-Meow@github.com': 
 remote: Repository not found.
-fatal: repository 'https://github.com//lab08/' not found
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git remote remove origin
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ export GITHUB_USERNAME=Mari-Mur-Meow
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab08
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git push origin master
+fatal: repository 'https://github.com//lab09/' not found
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git remote remove origin
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ export GITHUB_USERNAME=Mari-Mur-Meow
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab09
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git push origin master
 Username for 'https://github.com': Mari-Mur-Meow
 Password for 'https://Mari-Mur-Meow@github.com': 
-To https://github.com/Mari-Mur-Meow/lab08
+To https://github.com/Mari-Mur-Meow/lab09
  ! [rejected]        master -> master (fetch first)
-error: не удалось отправить некоторые ссылки в «https://github.com/Mari-Mur-Meow/lab08»
+error: не удалось отправить некоторые ссылки в «https://github.com/Mari-Mur-Meow/lab09»
 подсказка: Updates were rejected because the remote contains work that you do not
 подсказка: have locally. This is usually caused by another repository pushing to
 подсказка: the same ref. If you want to integrate the remote changes, use
 подсказка: 'git pull' before pushing again.
 подсказка: See the 'Note about fast-forwards' in 'git push --help' for details.
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ 
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ 
 git pull origin master
 remote: Enumerating objects: 5, done.
 remote: Counting objects: 100% (5/5), done.
 remote: Compressing objects: 100% (3/3), done.
 remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
 Распаковка объектов: 100% (3/3), 4.69 КиБ | 1.56 МиБ/с, готово.
-Из https://github.com/Mari-Mur-Meow/lab08
+Из https://github.com/Mari-Mur-Meow/lab09
  * branch            master     -> FETCH_HEAD
  * [новая ветка]     master     -> origin/master
 подсказка: You have divergent branches and need to specify how to reconcile them.
@@ -910,20 +910,20 @@ remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
 подсказка: or --ff-only on the command line to override the configured default per
 подсказка: invocation.
 fatal: Need to specify how to reconcile divergent branches.
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git push origin master
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git push origin master
 Username for 'https://github.com': Mari-Mur-Meow
 Password for 'https://Mari-Mur-Meow@github.com': 
-To https://github.com/Mari-Mur-Meow/lab08
+To https://github.com/Mari-Mur-Meow/lab09
  ! [rejected]        master -> master (non-fast-forward)
-error: не удалось отправить некоторые ссылки в «https://github.com/Mari-Mur-Meow/lab08»
+error: не удалось отправить некоторые ссылки в «https://github.com/Mari-Mur-Meow/lab09»
 подсказка: Updates were rejected because the tip of your current branch is behind
 подсказка: its remote counterpart. If you want to integrate the remote changes,
 подсказка: use 'git pull' before pushing again.
 подсказка: See the 'Note about fast-forwards' in 'git push --help' for details.
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git pull --rebase origin master
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git pull --rebase origin master
 error: не удалось выполнить получение с перемещением: У вас есть непроиндексированные изменения.
 error: Сделайте коммит или спрячьте их.
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git commit -m"adding Dockerfile"
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git commit -m"adding Dockerfile"
 Текущая ветка: master
 Изменения, которые не в индексе для коммита:
   (используйте «git add <файл>...», чтобы добавить файл в индекс)
@@ -938,8 +938,8 @@ murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git commit -m"adding Dockerfile
 	tools/
 
 индекс пуст (используйте «git add» и/или «git commit -a»)
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git add .
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git status
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git add .
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git status
 Текущая ветка: master
 Изменения, которые будут включены в коммит:
   (используйте «git restore --staged <файл>...», чтобы убрать из индекса)
@@ -1754,7 +1754,7 @@ murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git status
 	новый файл:    tools/polly/xcode-sections.cmake
 	новый файл:    tools/polly/xcode.cmake
 
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git commit -m "adding Dockerfile"
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git commit -m "adding Dockerfile"
 [master a88a687] adding Dockerfile
  810 files changed, 31279 insertions(+), 86 deletions(-)
  create mode 100644 cmake/Hunter/config.cmake
@@ -2566,8 +2566,8 @@ murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git commit -m "adding Dockerfil
  create mode 100644 tools/polly/xcode-nocxx.cmake
  create mode 100644 tools/polly/xcode-sections.cmake
  create mode 100644 tools/polly/xcode.cmake
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git pull --rebase origin master 
-Из https://github.com/Mari-Mur-Meow/lab08
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git pull --rebase origin master 
+Из https://github.com/Mari-Mur-Meow/lab09
  * branch            master     -> FETCH_HEAD
 Автослияние README.md
 КОНФЛИКТ (содержимое): Конфликт слияния в README.md
@@ -2577,13 +2577,13 @@ error: не удалось применить коммит a88a687... adding Doc
 подсказка: You can instead skip this commit: run "git rebase --skip".
 подсказка: To abort and get back to the state before "git rebase", run "git rebase --abort".
 Не удалось применить коммит a88a687... adding Dockerfile
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git pull --rebase origin master
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git pull --rebase origin master
 error: Невозможно выполнить получение, так как у вас имеются не слитые файлы.
 подсказка: Исправьте их в рабочем каталоге, затем запустите «git add/rm <файл>»,
 подсказка: чтобы пометить исправление и сделайте коммит.
 fatal: Выход из-за неразрешенного конфликта.
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git add .
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git rebase --continue
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git add .
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git rebase --continue
 [отделённый HEAD fc072b9] adding Dockerfile
  810 files changed, 31193 insertions(+), 310 deletions(-)
  create mode 100644 cmake/Hunter/config.cmake
@@ -3396,7 +3396,7 @@ murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git rebase --continue
  create mode 100644 tools/polly/xcode-sections.cmake
  create mode 100644 tools/polly/xcode.cmake
 Успешно перемещён и обновлён refs/heads/master.
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ git push origin master
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ git push origin master
 Username for 'https://github.com': Mari-Mur-Meow
 Password for 'https://Mari-Mur-Meow@github.com': 
 Перечисление объектов: 847, готово.
@@ -3406,7 +3406,7 @@ Password for 'https://Mari-Mur-Meow@github.com':
 Запись объектов: 100% (845/845), 537.80 КиБ | 6.25 МиБ/с, готово.
 Всего 845 (изменений 591), повторно использовано 0 (изменений 0), повторно использовано пакетов 0
 remote: Resolving deltas: 100% (591/591), completed with 1 local object.
-To https://github.com/Mari-Mur-Meow/lab08
+To https://github.com/Mari-Mur-Meow/lab09
    b618ab9..fc072b9  master -> master
-murka2006@murka:~/Mari-Mur-Meow/workspace/lab08$ 
+murka2006@murka:~/Mari-Mur-Meow/workspace/lab09$ 
 
