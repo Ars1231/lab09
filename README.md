@@ -1,4 +1,4 @@
-export GITHUB_TOKEN=ваш_токен
+export GITHUB_TOKEN=
 export GITHUB_USERNAME=Ars1231
 command -v apt && echo "Системный менеджер: APT" || echo "APT не найден"
 /usr/bin/apt
@@ -298,3 +298,4 @@ Password for 'https://Ars1231@github.com':
 remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
 To https://github.com/Ars1231/lab09
    cd0771d..e6c9d7e  master -> master
+
