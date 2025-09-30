@@ -206,7 +206,7 @@ tag v0.1.0.0
 tagger Ars <Ars89036698220potacov@yandex.ru> 1747159204 +0300
 
 Initial release version 0.1.0.0
-gpg: Подпись сделана Вт 13 мая 2025 21:00:04 MSK
+gpg: Подпись сделана Вт 13 мая 2025 21:00:05 MSK
 gpg:                ключом RSA с идентификатором ED49EAE025DEC4066BC80554AB4F6155CFC9F4BD
 gpg: Действительная подпись пользователя "Ars <Ars89036698220potacov@yandex.ru>" [абсолютное]
 
@@ -298,4 +298,5 @@ Password for 'https://Ars1231@github.com':
 remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
 To https://github.com/Ars1231/lab09
    cd0771d..e6c9d7e  master -> master
+
 
